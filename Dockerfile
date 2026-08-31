@@ -11,6 +11,10 @@ RUN apt-get install -y libpng-dev libxml2-dev
 RUN apt-get install -y clang-format-14 clang-tidy-14
 RUN apt-get install -y ./gcc-toolchain-mips64-x86_64.deb
 
+RUN git clone --depth 1 --branch ff216a75df0987047a67d7923567dc4482ce07ac git@github.com:Alcaro/Flips.git flips
+RUN make -C flips CFLAGS='-O3 -flto' TARGET=cli
+RUN cp flips/flips /bin
+
 ENV N64_GCCPREFIX=/opt/libdragon
 
 CMD [ "sh" ]
